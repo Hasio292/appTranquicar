@@ -1,0 +1,311 @@
+﻿<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="theme-color" content="#0f766e" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-title" content="Tranquicar" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <title>tranquicar - Maneja sin estrés</title>
+  <link rel="manifest" href="manifest.json" />
+  <link rel="icon" type="image/avif" href="assets/tranquicar-logo.avif" />
+  <link rel="apple-touch-icon" href="assets/tranquicar-logo.avif" />
+  <link rel="preconnect" href="https://cdnjs.cloudflare.com" />
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+  />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <main class="app-shell" aria-label="Prototipo PWA tranquicar">
+    <header class="topbar">
+      <div class="brand">
+        <img class="brand-mark" src="assets/tranquicar-logo.avif" alt="Logo de tranquicar" />
+        <div>
+          <h1>Tranquicar</h1>
+          <span>Maneja sin estrés</span>
+        </div>
+      </div>
+      <button class="weather-pill" data-target="alerts" type="button" aria-label="Ver clima y tránsito">
+        <i class="fa-solid fa-cloud-sun"></i>
+        <span>23° Fluido</span>
+      </button>
+    </header>
+
+    <section class="screen active" id="home-screen">
+      <div class="hero-card">
+        <div class="status-row">
+          <div class="status-tile">
+            <i class="fa-solid fa-route"></i>
+            <strong>Ruta segura activa</strong>
+            <span>Evita 3 zonas peligrosas</span>
+          </div>
+          <div class="status-tile">
+            <i class="fa-solid fa-shield-heart"></i>
+            <strong>Centro de control</strong>
+            <span>Policía, bomberos y municipalidad</span>
+          </div>
+        </div>
+
+        <div class="map" aria-label="Mapa de rutas seguras">
+          <div class="road road-a"></div>
+          <div class="road road-b"></div>
+          <div class="route"></div>
+          <div class="map-label">
+            <strong>Rutas seguras en tiempo real</strong>
+            <span>Alertas de tráfico y accidentes cerca de ti</span>
+          </div>
+          <div class="marker danger one" title="Zona peligrosa"><i class="fa-solid fa-triangle-exclamation"></i></div>
+          <div class="marker traffic two" title="Accidente reportado"><i class="fa-solid fa-car-burst"></i></div>
+          <div class="marker police three" title="Apoyo conectado"><i class="fa-solid fa-building-shield"></i></div>
+        </div>
+      </div>
+
+      <button class="sos-button" id="sosButton" type="button">
+        <i class="fa-solid fa-phone-volume"></i>
+        Botón SOS Inmediato
+      </button>
+
+      <div class="section-title">
+        <h2>Accesos rápidos</h2>
+        <small>Hoy, Lima</small>
+      </div>
+      <div class="quick-grid">
+        <button class="quick-action" data-target="scanner" type="button">
+          <i class="fa-solid fa-camera"></i>
+          Consulta vehicular rápida
+        </button>
+        <button class="quick-action" data-target="alerts" type="button">
+          <i class="fa-solid fa-traffic-light"></i>
+          Alertas de tráfico
+        </button>
+        <button class="quick-action" data-target="community" type="button">
+          <i class="fa-solid fa-users"></i>
+          Comunidad vial
+        </button>
+        <button class="quick-action" data-target="alerts" type="button">
+          <i class="fa-solid fa-map-location-dot"></i>
+          Zonas peligrosas
+        </button>
+      </div>
+    </section>
+
+    <section class="screen" id="scanner-screen">
+      <div class="section-title">
+        <h2>Escáner vehicular</h2>
+        <small>Consulta por placa</small>
+      </div>
+
+      <div class="scanner-frame">
+        <div class="scan-line"></div>
+        <div class="plate-target">ABC-123</div>
+        <div class="scanner-hint">Alinea la placa dentro del recuadro</div>
+      </div>
+
+      <div class="manual-search">
+        <div class="input-wrap">
+          <i class="fa-solid fa-keyboard"></i>
+          <input id="plateInput" maxlength="7" placeholder="Ingresar placa ABC-123" value="ABC-123" />
+        </div>
+        <button class="primary-button" id="scanButton" type="button">
+          <i class="fa-solid fa-magnifying-glass"></i>
+          Simular escaneo
+        </button>
+      </div>
+
+      <article class="card vehicle-profile" id="vehicleProfile">
+        <div class="vehicle-head">
+          <div class="plate-badge" id="profilePlate">ABC-123</div>
+          <div class="risk-badge">Riesgo bajo</div>
+        </div>
+        <p class="vehicle-model" id="profileModel">Toyota Yaris 2020 · Gris</p>
+        <div class="stars" aria-label="Reputación 4 de 5">
+          <i class="fa-solid fa-star"></i>
+          <i class="fa-solid fa-star"></i>
+          <i class="fa-solid fa-star"></i>
+          <i class="fa-solid fa-star"></i>
+          <i class="fa-regular fa-star"></i>
+          <strong>4.1</strong>
+        </div>
+
+        <div class="section-title">
+          <h2>Comunidad vial</h2>
+          <small>3 reportes</small>
+        </div>
+        <div class="comment">
+          <strong>Usuario verificado · hace 2 h</strong>
+          <p>Conductor respetó el cruce peatonal y mantuvo distancia segura.</p>
+        </div>
+        <div class="comment">
+          <strong>Reporte preventivo · ayer</strong>
+          <p>Frenado brusco en avenida principal. Sin accidente reportado.</p>
+        </div>
+        <div class="button-row">
+          <button class="secondary-button" id="complaintButton" type="button">
+            <i class="fa-solid fa-flag"></i>
+            Queja
+          </button>
+          <button class="secondary-button" id="rateButton" type="button">
+            <i class="fa-solid fa-star-half-stroke"></i>
+            Valorar
+          </button>
+        </div>
+      </article>
+    </section>
+
+    <section class="screen" id="alerts-screen">
+      <div class="section-title">
+        <h2>Centro de control</h2>
+        <small>En vivo</small>
+      </div>
+
+      <div class="control-metrics">
+        <div class="card metric">
+          <strong>8</strong>
+          <span>Alertas cercanas</span>
+        </div>
+        <div class="card metric">
+          <strong>3</strong>
+          <span>Rutas alternas</span>
+        </div>
+      </div>
+
+      <div class="alert-list">
+        <article class="card alert-item">
+          <div class="icon-chip chip-red"><i class="fa-solid fa-triangle-exclamation"></i></div>
+          <div class="item-body">
+            <h3>Zona peligrosa detectada</h3>
+            <p>Av. Colonial con congestión alta y reportes de riesgo. Se recomienda ruta alterna.</p>
+          </div>
+        </article>
+        <article class="card alert-item">
+          <div class="icon-chip chip-amber"><i class="fa-solid fa-car-burst"></i></div>
+          <div class="item-body">
+            <h3>Accidente reportado</h3>
+            <p>Vía Expresa presenta carril lento. Bomberos y municipalidad notificados.</p>
+          </div>
+        </article>
+        <article class="card alert-item">
+          <div class="icon-chip chip-blue"><i class="fa-solid fa-person-military-pointing"></i></div>
+          <div class="item-body">
+            <h3>Apoyo policial cercano</h3>
+            <p>Punto de auxilio a 900 m conectado al centro de control.</p>
+          </div>
+        </article>
+        <article class="card alert-item">
+          <div class="icon-chip chip-teal"><i class="fa-solid fa-cloud-sun-rain"></i></div>
+          <div class="item-body">
+            <h3>Clima y tránsito</h3>
+            <p>Llovizna ligera en 40 minutos. Manejo estable con velocidad moderada.</p>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="screen" id="community-screen">
+      <div class="section-title">
+        <h2>Comunidad vial</h2>
+        <small>Tu perfil</small>
+      </div>
+
+      <article class="card profile-card">
+        <div class="profile-top">
+          <div class="avatar"><i class="fa-solid fa-user-shield"></i></div>
+          <div>
+            <h2>Conductor tranquilo</h2>
+            <p>Miembro desde mayo · Lima</p>
+          </div>
+        </div>
+        <div class="reputation">
+          <div class="rep-box">
+            <strong>4.8</strong>
+            <span>Reputación</span>
+          </div>
+          <div class="rep-box">
+            <strong>12</strong>
+            <span>Aportes</span>
+          </div>
+          <div class="rep-box">
+            <strong>96%</strong>
+            <span>Confianza</span>
+          </div>
+        </div>
+      </article>
+
+      <div class="section-title">
+        <h2>Actividad reciente</h2>
+        <small>Comunidad</small>
+      </div>
+      <div class="community-list">
+        <article class="card community-item">
+          <div class="icon-chip chip-teal"><i class="fa-solid fa-thumbs-up"></i></div>
+          <div class="item-body">
+            <h3>Valoraste a un conductor</h3>
+            <p>Placa BCD-456 recibió una valoración positiva por conducción prudente.</p>
+          </div>
+        </article>
+        <article class="card community-item">
+          <div class="icon-chip chip-amber"><i class="fa-solid fa-bullhorn"></i></div>
+          <div class="item-body">
+            <h3>Reportaste tráfico</h3>
+            <p>Tu alerta ayudó a 18 conductores a tomar una ruta segura.</p>
+          </div>
+        </article>
+        <article class="card community-item">
+          <div class="icon-chip chip-blue"><i class="fa-solid fa-hands-helping"></i></div>
+          <div class="item-body">
+            <h3>Red de apoyo activa</h3>
+            <p>Policía, bomberos y municipalidad aparecen como canales conectados.</p>
+          </div>
+        </article>
+      </div>
+    </section>
+  </main>
+
+  <aside class="install-banner" id="installBanner" aria-live="polite">
+    <img src="assets/tranquicar-logo.avif" alt="" />
+    <div>
+      <strong>Instala Tranquicar</strong>
+      <span id="installText">Abre la app sin la barra del navegador.</span>
+    </div>
+    <button id="installButton" type="button">Instalar</button>
+    <button class="install-close" id="dismissInstall" type="button" aria-label="Ocultar aviso">
+      <i class="fa-solid fa-xmark"></i>
+    </button>
+  </aside>
+
+  <nav class="bottom-nav" aria-label="Navegación principal">
+    <button class="nav-item active" data-target="home" type="button">
+      <i class="fa-solid fa-house"></i>
+      Inicio
+    </button>
+    <button class="nav-item" data-target="scanner" type="button">
+      <i class="fa-solid fa-camera"></i>
+      Escáner
+    </button>
+    <button class="nav-item" data-target="alerts" type="button">
+      <i class="fa-solid fa-triangle-exclamation"></i>
+      Alertas
+    </button>
+    <button class="nav-item" data-target="community" type="button">
+      <i class="fa-solid fa-users"></i>
+      Comunidad
+    </button>
+  </nav>
+
+  <div class="modal-backdrop" id="modalBackdrop" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    <div class="modal">
+      <h2 id="modalTitle">Acción simulada</h2>
+      <p id="modalText">Este prototipo muestra cómo se vería la acción dentro de tranquicar.</p>
+      <div class="modal-actions">
+        <button class="ghost-button" id="closeModal" type="button">Cerrar</button>
+        <button class="danger-button" id="confirmModal" type="button">Entendido</button>
+      </div>
+    </div>
+  </div>
+  <script src="app.js"></script>
+</body>
+</html>
