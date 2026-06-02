@@ -31,6 +31,10 @@
       letter-spacing: 0;
     }
 
+    body.map-fullscreen {
+      overflow: hidden;
+    }
+
     button,
     input {
       font: inherit;
@@ -308,6 +312,19 @@
       background: #dbeafe;
     }
 
+    .real-map.destination-selecting {
+      position: fixed;
+      inset: 0;
+      z-index: 60;
+      min-height: 100vh;
+      border: 0;
+      border-radius: 0;
+    }
+
+    .real-map.destination-selecting .map-status-card {
+      display: none;
+    }
+
     .safe-route-map {
       position: absolute;
       inset: 0;
@@ -392,6 +409,61 @@
       box-shadow: 0 10px 18px rgba(15, 118, 110, 0.22);
     }
 
+    .destination-button {
+      grid-template-columns: auto auto;
+      width: auto;
+      min-width: 96px;
+      padding: 0 12px;
+      gap: 7px;
+    }
+
+    .destination-button span {
+      font-size: 0.78rem;
+      font-weight: 900;
+    }
+
+    .destination-mode-bar {
+      position: absolute;
+      left: 12px;
+      right: 12px;
+      top: 12px;
+      z-index: 6;
+      display: none;
+      align-items: center;
+      gap: 10px;
+      padding: 10px;
+      background: rgba(255, 255, 255, 0.95);
+      border: 1px solid rgba(226, 232, 240, 0.92);
+      border-radius: 16px;
+      box-shadow: var(--soft-shadow);
+      backdrop-filter: blur(12px);
+    }
+
+    .real-map.destination-selecting .destination-mode-bar {
+      display: flex;
+    }
+
+    .destination-mode-bar div {
+      min-width: 0;
+    }
+
+    .destination-mode-bar strong,
+    .destination-mode-bar span {
+      display: block;
+    }
+
+    .destination-mode-bar strong {
+      font-size: 0.94rem;
+      line-height: 1.1;
+    }
+
+    .destination-mode-bar span {
+      margin-top: 3px;
+      color: var(--muted);
+      font-size: 0.74rem;
+      font-weight: 750;
+    }
+
     .route-summary {
       position: absolute;
       left: 12px;
@@ -407,6 +479,10 @@
       border-radius: 16px;
       box-shadow: var(--soft-shadow);
       backdrop-filter: blur(12px);
+    }
+
+    .route-summary.is-hidden {
+      display: none;
     }
 
     .route-summary div {
@@ -461,8 +537,20 @@
       background: var(--amber);
     }
 
+    .map-pin.accident {
+      background: var(--red);
+    }
+
     .map-pin.control {
       background: var(--blue);
+    }
+
+    .map-pin.fuel {
+      background: #7c3aed;
+    }
+
+    .map-pin.health {
+      background: #16a34a;
     }
 
     .user-location-dot {

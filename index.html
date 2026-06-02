@@ -44,8 +44,8 @@
         <div class="status-row">
           <div class="status-tile">
             <i class="fa-solid fa-route"></i>
-            <strong>Ruta segura activa</strong>
-            <span>Evita 3 zonas peligrosas</span>
+            <strong>Destino libre</strong>
+            <span>Toca el mapa y genera una ruta visual</span>
           </div>
           <div class="status-tile">
             <i class="fa-solid fa-shield-heart"></i>
@@ -58,29 +58,39 @@
           <div id="safeRouteMap" class="safe-route-map"></div>
           <div class="map-status-card">
             <div>
-              <strong>Ruta segura en tiempo real</strong>
-              <span id="routeStatus">Centro de Lima → Miraflores</span>
+              <strong>Mapa GPS en Abancay</strong>
+              <span id="routeStatus">Detectando tu ubicación...</span>
             </div>
             <div class="map-control-group">
               <button class="map-control-button" id="locateUser" type="button" aria-label="Ver mi ubicación">
                 <i class="fa-solid fa-location-crosshairs"></i>
               </button>
-              <button class="map-control-button" id="recalculateRoute" type="button" aria-label="Recalcular ruta">
-                <i class="fa-solid fa-rotate"></i>
+              <button class="map-control-button destination-button" id="focusDestination" type="button" aria-label="Seleccionar destino">
+                <i class="fa-solid fa-diamond-turn-right"></i>
+                <span>Elegir</span>
               </button>
             </div>
           </div>
-          <div class="route-summary">
+          <div class="destination-mode-bar" id="destinationModeBar">
+            <button class="map-control-button" id="closeDestinationMode" type="button" aria-label="Cerrar selección de destino">
+              <i class="fa-solid fa-xmark"></i>
+            </button>
             <div>
-              <strong id="routeTime">24 min</strong>
+              <strong>Elige tu destino</strong>
+              <span>Toca cualquier punto del mapa</span>
+            </div>
+          </div>
+          <div class="route-summary is-hidden" id="routeSummary">
+            <div>
+              <strong id="routeTime">--</strong>
               <span>Tiempo</span>
             </div>
             <div>
-              <strong id="routeRisk">Bajo</strong>
-              <span>Riesgo</span>
+              <strong id="routeRisk">--</strong>
+              <span>Tráfico</span>
             </div>
             <div>
-              <strong id="routeAlerts">3</strong>
+              <strong id="routeAlerts">--</strong>
               <span>Alertas</span>
             </div>
           </div>
@@ -94,7 +104,7 @@
 
       <div class="section-title">
         <h2>Accesos rápidos</h2>
-        <small>Hoy, Lima</small>
+        <small>Hoy, Abancay</small>
       </div>
       <div class="quick-grid">
         <button class="quick-action" data-target="scanner" type="button">
