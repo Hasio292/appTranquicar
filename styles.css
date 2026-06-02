@@ -303,6 +303,219 @@
       bottom: 16%;
     }
 
+    .real-map {
+      min-height: 360px;
+      background: #dbeafe;
+    }
+
+    .safe-route-map {
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+      min-height: 100%;
+    }
+
+    .safe-route-map .leaflet-control-attribution {
+      display: none;
+    }
+
+    .safe-route-map .leaflet-control-zoom {
+      overflow: hidden;
+      border: 0;
+      border-radius: 12px;
+      box-shadow: var(--soft-shadow);
+    }
+
+    .safe-route-map .leaflet-control-zoom a {
+      color: var(--teal-dark);
+      border: 0;
+      font-weight: 900;
+    }
+
+    .map-status-card {
+      position: absolute;
+      left: 12px;
+      right: 12px;
+      top: 12px;
+      z-index: 5;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 11px;
+      background: rgba(255, 255, 255, 0.94);
+      border: 1px solid rgba(226, 232, 240, 0.92);
+      border-radius: 16px;
+      box-shadow: var(--soft-shadow);
+      backdrop-filter: blur(12px);
+    }
+
+    .map-status-card div {
+      min-width: 0;
+      flex: 1;
+    }
+
+    .map-status-card strong,
+    .map-status-card span {
+      display: block;
+    }
+
+    .map-status-card strong {
+      font-size: 0.88rem;
+      line-height: 1.15;
+    }
+
+    .map-status-card span {
+      margin-top: 4px;
+      color: var(--muted);
+      font-size: 0.72rem;
+      font-weight: 750;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .map-control-group {
+      display: flex;
+      flex: 0 0 auto;
+      gap: 7px;
+    }
+
+    .map-control-button {
+      display: grid;
+      flex: 0 0 38px;
+      width: 38px;
+      height: 38px;
+      place-items: center;
+      color: #fff;
+      background: var(--teal);
+      border-radius: 13px;
+      box-shadow: 0 10px 18px rgba(15, 118, 110, 0.22);
+    }
+
+    .route-summary {
+      position: absolute;
+      left: 12px;
+      right: 12px;
+      bottom: 12px;
+      z-index: 5;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+      padding: 8px;
+      background: rgba(255, 255, 255, 0.94);
+      border: 1px solid rgba(226, 232, 240, 0.92);
+      border-radius: 16px;
+      box-shadow: var(--soft-shadow);
+      backdrop-filter: blur(12px);
+    }
+
+    .route-summary div {
+      padding: 9px 6px;
+      background: #f8fafc;
+      border-radius: 12px;
+      text-align: center;
+    }
+
+    .route-summary strong,
+    .route-summary span {
+      display: block;
+    }
+
+    .route-summary strong {
+      font-size: 0.95rem;
+      line-height: 1.1;
+    }
+
+    .route-summary span {
+      margin-top: 4px;
+      color: var(--muted);
+      font-size: 0.68rem;
+      font-weight: 850;
+    }
+
+    .map-pin {
+      display: grid;
+      width: 34px;
+      height: 34px;
+      place-items: center;
+      color: #fff;
+      border: 3px solid #fff;
+      border-radius: 50%;
+      box-shadow: 0 10px 20px rgba(15, 23, 42, 0.24);
+      font-size: 0.86rem;
+    }
+
+    .map-pin.start {
+      background: var(--green);
+    }
+
+    .map-pin.end {
+      background: var(--teal);
+    }
+
+    .map-pin.danger {
+      background: var(--red);
+    }
+
+    .map-pin.traffic {
+      background: var(--amber);
+    }
+
+    .map-pin.control {
+      background: var(--blue);
+    }
+
+    .user-location-dot {
+      position: relative;
+      display: block;
+      width: 20px;
+      height: 20px;
+      background: #2563eb;
+      border: 4px solid #fff;
+      border-radius: 50%;
+      box-shadow: 0 0 0 9px rgba(37, 99, 235, 0.18), 0 8px 18px rgba(37, 99, 235, 0.35);
+    }
+
+    .user-location-dot::after {
+      content: "";
+      position: absolute;
+      inset: -12px;
+      border: 2px solid rgba(37, 99, 235, 0.28);
+      border-radius: 50%;
+      animation: pulseLocation 1.8s ease-out infinite;
+    }
+
+    @keyframes pulseLocation {
+      from {
+        opacity: 0.9;
+        transform: scale(0.7);
+      }
+      to {
+        opacity: 0;
+        transform: scale(1.35);
+      }
+    }
+
+    .leaflet-popup-content-wrapper {
+      border-radius: 14px;
+      box-shadow: var(--soft-shadow);
+    }
+
+    .leaflet-popup-content {
+      margin: 10px 12px;
+      color: var(--ink);
+      font-family: inherit;
+      font-size: 0.78rem;
+      font-weight: 700;
+      line-height: 1.35;
+    }
+
+    .leaflet-popup-content strong {
+      display: block;
+      margin-bottom: 3px;
+      font-size: 0.84rem;
+    }
+
     .sos-button {
       position: sticky;
       bottom: 92px;
@@ -904,4 +1117,3 @@
         bottom: 104px;
       }
     }
-

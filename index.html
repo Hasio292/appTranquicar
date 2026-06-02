@@ -17,6 +17,10 @@
     rel="stylesheet"
     href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
   />
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css"
+  />
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
@@ -50,17 +54,36 @@
           </div>
         </div>
 
-        <div class="map" aria-label="Mapa de rutas seguras">
-          <div class="road road-a"></div>
-          <div class="road road-b"></div>
-          <div class="route"></div>
-          <div class="map-label">
-            <strong>Rutas seguras en tiempo real</strong>
-            <span>Alertas de tráfico y accidentes cerca de ti</span>
+        <div class="map real-map" aria-label="Mapa de rutas seguras">
+          <div id="safeRouteMap" class="safe-route-map"></div>
+          <div class="map-status-card">
+            <div>
+              <strong>Ruta segura en tiempo real</strong>
+              <span id="routeStatus">Centro de Lima → Miraflores</span>
+            </div>
+            <div class="map-control-group">
+              <button class="map-control-button" id="locateUser" type="button" aria-label="Ver mi ubicación">
+                <i class="fa-solid fa-location-crosshairs"></i>
+              </button>
+              <button class="map-control-button" id="recalculateRoute" type="button" aria-label="Recalcular ruta">
+                <i class="fa-solid fa-rotate"></i>
+              </button>
+            </div>
           </div>
-          <div class="marker danger one" title="Zona peligrosa"><i class="fa-solid fa-triangle-exclamation"></i></div>
-          <div class="marker traffic two" title="Accidente reportado"><i class="fa-solid fa-car-burst"></i></div>
-          <div class="marker police three" title="Apoyo conectado"><i class="fa-solid fa-building-shield"></i></div>
+          <div class="route-summary">
+            <div>
+              <strong id="routeTime">24 min</strong>
+              <span>Tiempo</span>
+            </div>
+            <div>
+              <strong id="routeRisk">Bajo</strong>
+              <span>Riesgo</span>
+            </div>
+            <div>
+              <strong id="routeAlerts">3</strong>
+              <span>Alertas</span>
+            </div>
+          </div>
         </div>
       </div>
 
@@ -306,6 +329,7 @@
       </div>
     </div>
   </div>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
   <script src="app.js"></script>
 </body>
 </html>
