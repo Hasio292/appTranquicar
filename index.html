@@ -47,10 +47,10 @@
             <strong>Destino libre</strong>
             <span>Toca el mapa y genera una ruta visual</span>
           </div>
-          <div class="status-tile">
-            <i class="fa-solid fa-shield-heart"></i>
-            <strong>Centro de control</strong>
-            <span>Policía, bomberos y municipalidad</span>
+          <div class="status-tile status-tile-tap" id="fuelTileBtn">
+            <i class="fa-solid fa-gas-pump"></i>
+            <strong>Combustible hoy</strong>
+            <span>Toca para ver precios <i class="fa-solid fa-chevron-right" style="font-size:0.6rem"></i></span>
           </div>
         </div>
 
@@ -320,6 +320,9 @@
         <button class="news-tab" data-news="transit">Tránsito</button>
         <button class="news-tab" data-news="system">Sistema</button>
         <button class="news-tab" data-news="community">Reportes</button>
+        <button class="news-tab news-tab-personal" data-news="personal">
+          <i class="fa-solid fa-user-check"></i> Para mí
+        </button>
       </div>
 
       <div class="news-list">
@@ -385,6 +388,122 @@
         </article>
 
       </div>
+
+      <!-- Sección "Para mí" -->
+      <div class="personal-section" id="personalSection" style="display:none">
+
+        <!-- Banner de bienvenida personal -->
+        <div class="personal-hello">
+          <div class="personal-hello-icon"><i class="fa-solid fa-user-shield"></i></div>
+          <div>
+            <strong>Hola, Conductor tranquilo</strong>
+            <span>Estado de tu vehículo · Placa ABC-123</span>
+          </div>
+        </div>
+
+        <!-- SOAT -->
+        <div class="doc-card doc-ok">
+          <div class="doc-card-left">
+            <div class="doc-icon" style="background:#dcfce7;color:#166534"><i class="fa-solid fa-file-shield"></i></div>
+            <div>
+              <strong>SOAT</strong>
+              <span>Seguro Obligatorio de Accidentes</span>
+            </div>
+          </div>
+          <div class="doc-status status-ok">
+            <i class="fa-solid fa-circle-check"></i>
+            Vigente
+          </div>
+          <div class="doc-expiry">Vence: 14 dic 2025</div>
+        </div>
+
+        <!-- Revisión técnica -->
+        <div class="doc-card doc-warning">
+          <div class="doc-card-left">
+            <div class="doc-icon" style="background:#fef9c3;color:#92400e"><i class="fa-solid fa-screwdriver-wrench"></i></div>
+            <div>
+              <strong>Revisión Técnica</strong>
+              <span>Inspección vehicular SENATI</span>
+            </div>
+          </div>
+          <div class="doc-status status-warning">
+            <i class="fa-solid fa-triangle-exclamation"></i>
+            Por vencer
+          </div>
+          <div class="doc-expiry">Vence: 30 jun 2025 · <strong style="color:#92400e">28 días</strong></div>
+        </div>
+
+        <!-- Licencia de conducir -->
+        <div class="doc-card doc-ok">
+          <div class="doc-card-left">
+            <div class="doc-icon" style="background:#dbeafe;color:#1e3a8a"><i class="fa-solid fa-id-card"></i></div>
+            <div>
+              <strong>Licencia de Conducir</strong>
+              <span>Categoría A-IIb · MTC</span>
+            </div>
+          </div>
+          <div class="doc-status status-ok">
+            <i class="fa-solid fa-circle-check"></i>
+            Vigente
+          </div>
+          <div class="doc-expiry">Vence: 3 mar 2027</div>
+        </div>
+
+        <!-- Tarjeta de propiedad -->
+        <div class="doc-card doc-ok">
+          <div class="doc-card-left">
+            <div class="doc-icon" style="background:#ede9fe;color:#5b21b6"><i class="fa-solid fa-file-lines"></i></div>
+            <div>
+              <strong>Tarjeta de Propiedad</strong>
+              <span>Registro vehicular SUNARP</span>
+            </div>
+          </div>
+          <div class="doc-status status-ok">
+            <i class="fa-solid fa-circle-check"></i>
+            Al día
+          </div>
+          <div class="doc-expiry">Sin vencimiento registrado</div>
+        </div>
+
+        <!-- Multas -->
+        <div class="doc-card doc-danger">
+          <div class="doc-card-left">
+            <div class="doc-icon" style="background:#fee2e2;color:#991b1b"><i class="fa-solid fa-gavel"></i></div>
+            <div>
+              <strong>Multas pendientes</strong>
+              <span>Infracciones MTC / SUTRAN</span>
+            </div>
+          </div>
+          <div class="doc-status status-danger">
+            <i class="fa-solid fa-circle-xmark"></i>
+            1 pendiente
+          </div>
+          <div class="doc-expiry">S/ 431.00 · Exceso de velocidad · 12 abr</div>
+        </div>
+
+        <!-- Impuesto vehicular -->
+        <div class="doc-card doc-ok">
+          <div class="doc-card-left">
+            <div class="doc-icon" style="background:#d1fae5;color:#065f46"><i class="fa-solid fa-building-columns"></i></div>
+            <div>
+              <strong>Impuesto Vehicular</strong>
+              <span>Pago anual · Municipalidad</span>
+            </div>
+          </div>
+          <div class="doc-status status-ok">
+            <i class="fa-solid fa-circle-check"></i>
+            Pagado
+          </div>
+          <div class="doc-expiry">Último pago: ene 2025</div>
+        </div>
+
+        <!-- Nota prototipo -->
+        <div class="personal-note">
+          <i class="fa-solid fa-circle-info"></i>
+          Datos de muestra. En la versión final se conectará con MTC, SUNARP y SUTRAN.
+        </div>
+
+      </div>
     </section>
 
     <section class="screen" id="community-screen">
@@ -446,6 +565,103 @@
       </div>
     </section>
   </main>
+
+  <!-- Panel de combustible -->
+  <div class="weather-backdrop" id="fuelBackdrop" aria-hidden="true"></div>
+  <aside class="weather-sheet" id="fuelSheet" aria-label="Precios de combustible" aria-hidden="true">
+    <div class="weather-sheet-handle"></div>
+    <div class="weather-sheet-header">
+      <div class="weather-now">
+        <div class="weather-now-icon" style="background:linear-gradient(135deg,#fde68a,#f59e0b)">
+          <i class="fa-solid fa-gas-pump" style="color:#92400e"></i>
+        </div>
+        <div>
+          <div class="weather-now-temp" style="font-size:1.2rem">Combustible</div>
+          <div class="weather-now-desc">Precios referenciales · Abancay, hoy</div>
+        </div>
+      </div>
+      <button class="weather-close-btn" id="fuelCloseBtn" type="button" aria-label="Cerrar precios">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+    </div>
+
+    <div class="weather-drive-banner" style="background:#fef9c3;color:#854d0e;margin-bottom:16px">
+      <i class="fa-solid fa-circle-info"></i>
+      <div>
+        <strong>Precios de referencia OSINERGMIN</strong>
+        <span>Actualizados al día de hoy. Pueden variar según grifo.</span>
+      </div>
+    </div>
+
+    <div class="weather-section-label">Gasolinas</div>
+    <div class="fuel-list">
+      <div class="fuel-row">
+        <div class="fuel-icon" style="background:#dcfce7;color:#166534"><i class="fa-solid fa-leaf"></i></div>
+        <div class="fuel-info">
+          <strong>Gasohol 84</strong>
+          <span>Más económico · uso general</span>
+        </div>
+        <div class="fuel-price">S/ 14.20<small>/gal</small></div>
+      </div>
+      <div class="fuel-row">
+        <div class="fuel-icon" style="background:#dbeafe;color:#1e3a8a"><i class="fa-solid fa-droplet"></i></div>
+        <div class="fuel-info">
+          <strong>Gasohol 90</strong>
+          <span>Estándar · vehículos modernos</span>
+        </div>
+        <div class="fuel-price">S/ 15.60<small>/gal</small></div>
+      </div>
+      <div class="fuel-row">
+        <div class="fuel-icon" style="background:#ede9fe;color:#5b21b6"><i class="fa-solid fa-bolt"></i></div>
+        <div class="fuel-info">
+          <strong>Gasohol 95</strong>
+          <span>Premium · alto rendimiento</span>
+        </div>
+        <div class="fuel-price">S/ 17.40<small>/gal</small></div>
+      </div>
+      <div class="fuel-row">
+        <div class="fuel-icon" style="background:#fce7f3;color:#9d174d"><i class="fa-solid fa-star"></i></div>
+        <div class="fuel-info">
+          <strong>Gasohol 97</strong>
+          <span>Super premium</span>
+        </div>
+        <div class="fuel-price">S/ 19.10<small>/gal</small></div>
+      </div>
+    </div>
+
+    <div class="weather-section-label" style="margin-top:16px">Otros combustibles</div>
+    <div class="fuel-list">
+      <div class="fuel-row">
+        <div class="fuel-icon" style="background:#fef3c7;color:#92400e"><i class="fa-solid fa-fire"></i></div>
+        <div class="fuel-info">
+          <strong>Diésel B5</strong>
+          <span>Camiones y buses</span>
+        </div>
+        <div class="fuel-price">S/ 13.80<small>/gal</small></div>
+      </div>
+      <div class="fuel-row">
+        <div class="fuel-icon" style="background:#d1fae5;color:#065f46"><i class="fa-solid fa-wind"></i></div>
+        <div class="fuel-info">
+          <strong>GLP</strong>
+          <span>Gas licuado · mototaxis</span>
+        </div>
+        <div class="fuel-price">S/ 2.10<small>/kg</small></div>
+      </div>
+      <div class="fuel-row">
+        <div class="fuel-icon" style="background:#e0f2fe;color:#0369a1"><i class="fa-solid fa-circle-dot"></i></div>
+        <div class="fuel-info">
+          <strong>GNV</strong>
+          <span>Gas natural vehicular</span>
+        </div>
+        <div class="fuel-price">S/ 1.85<small>/m³</small></div>
+      </div>
+    </div>
+
+    <div class="fuel-note">
+      <i class="fa-solid fa-location-dot"></i>
+      Grifos más cercanos en el mapa — toca los marcadores <span style="color:#7c3aed">morados</span>
+    </div>
+  </aside>
 
   <!-- Panel de clima -->
   <div class="weather-backdrop" id="weatherBackdrop" aria-hidden="true"></div>

@@ -652,15 +652,58 @@ document.querySelectorAll(".alert-filter-btn").forEach((btn) => {
 });
 
 // ── News tabs ──
+const newsList = document.querySelector(".news-list");
+const personalSection = document.getElementById("personalSection");
+
 document.querySelectorAll(".news-tab").forEach((tab) => {
   tab.addEventListener("click", () => {
     document.querySelectorAll(".news-tab").forEach(t => t.classList.remove("active"));
     tab.classList.add("active");
     const filter = tab.dataset.news;
-    document.querySelectorAll(".news-card").forEach((card) => {
-      const type = card.dataset.newsType;
-      const match = filter === "all" || type === filter || (!type && filter === "all");
-      card.style.display = match ? "" : "none";
-    });
+
+    if (filter === "personal") {
+      newsList.style.display = "none";
+      personalSection.style.display = "grid";
+    } else {
+      newsList.style.display = "";
+      personalSection.style.display = "none";
+      document.querySelectorAll(".news-card").forEach((card) => {
+        const type = card.dataset.newsType;
+        const match = filter === "all" || type === filter || (!type && filter === "all");
+        card.style.display = match ? "" : "none";
+      });
+    }
   });
 });
+
+// ── Fuel sheet ──
+const fuelTileBtn  = document.getElementById("fuelTileBtn");
+const fuelSheet    = document.getElementById("fuelSheet");
+const fuelBackdrop = document.getElementById("fuelBackdrop");
+const fuelCloseBtn = document.getElementById("fuelCloseBtn");
+
+function openFuelSheet() {
+  fuelSheet.classList.add("open");
+  fuelBackdrop.classList.add("visible");
+  fuelSheet.setAttribute("aria-hidden", "false");
+  document.body.style.overflow = "hidden";
+}
+
+function closeFuelSheet() {
+  fuelSheet.classList.remove("open");
+  fuelBackdrop.classList.remove("visible");
+  fuelSheet.setAttribute("aria-hidden", "true");
+  document.body.style.overflow = "";
+}
+
+fuelTileBtn?.addEventListener("click", openFuelSheet);
+fuelCloseBtn?.addEventListener("click", closeFuelSheet);
+fuelBackdrop?.addEventListener("click", closeFuelSheet);
+
+let fuelTouchStartY = 0;
+fuelSheet?.addEventListener("touchstart", (e) => {
+  fuelTouchStartY = e.touches[0].clientY;
+}, { passive: true });
+fuelSheet?.addEventListener("touchend", (e) => {
+  if (e.changedTouches[0].clientY - fuelTouchStartY > 80) closeFuelSheet();
+}, { passive: true });
