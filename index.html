@@ -33,7 +33,7 @@
           <span>Maneja sin estrés</span>
         </div>
       </div>
-      <button class="weather-pill" data-target="alerts" type="button" aria-label="Ver clima y tránsito">
+      <button class="weather-pill" id="weatherPillBtn" type="button" aria-label="Ver clima y tránsito">
         <i class="fa-solid fa-cloud-sun"></i>
         <span>23° Fluido</span>
       </button>
@@ -80,6 +80,27 @@
               <span>Toca cualquier punto del mapa</span>
             </div>
           </div>
+          <div class="destination-menu" id="destinationMenu">
+            <div class="destination-menu-title">
+              <i class="fa-solid fa-flag-checkered"></i>
+              Destino actual
+            </div>
+            <div class="destination-menu-actions">
+              <button class="dest-menu-btn dest-delete" id="destMenuDelete" type="button">
+                <i class="fa-solid fa-trash"></i>
+                Eliminar destino
+              </button>
+              <button class="dest-menu-btn dest-cancel" id="destMenuCancel" type="button">
+                <i class="fa-solid fa-xmark"></i>
+                Cancelar
+              </button>
+              <button class="dest-menu-btn dest-accept" id="destMenuAccept" type="button">
+                <i class="fa-solid fa-diamond-turn-right"></i>
+                Nuevo destino
+              </button>
+            </div>
+          </div>
+
           <div class="route-summary is-hidden" id="routeSummary">
             <div>
               <strong id="routeTime">--</strong>
@@ -99,7 +120,7 @@
 
       <button class="sos-button" id="sosButton" type="button">
         <i class="fa-solid fa-phone-volume"></i>
-        Botón SOS Inmediato
+        SOS inmediato
       </button>
 
       <div class="section-title">
@@ -191,50 +212,178 @@
 
     <section class="screen" id="alerts-screen">
       <div class="section-title">
-        <h2>Centro de control</h2>
-        <small>En vivo</small>
+        <h2>Alertas críticas</h2>
+        <small>En vivo · Abancay</small>
       </div>
 
       <div class="control-metrics">
         <div class="card metric">
-          <strong>8</strong>
-          <span>Alertas cercanas</span>
+          <strong>5</strong>
+          <span>Alertas activas</span>
         </div>
         <div class="card metric">
-          <strong>3</strong>
-          <span>Rutas alternas</span>
+          <strong>2</strong>
+          <span>Accidentes hoy</span>
         </div>
       </div>
 
-      <div class="alert-list">
-        <article class="card alert-item">
-          <div class="icon-chip chip-red"><i class="fa-solid fa-triangle-exclamation"></i></div>
-          <div class="item-body">
-            <h3>Zona peligrosa detectada</h3>
-            <p>Av. Colonial con congestión alta y reportes de riesgo. Se recomienda ruta alterna.</p>
+      <div class="alerts-filter-row">
+        <button class="alert-filter-btn active" data-filter="all">Todos</button>
+        <button class="alert-filter-btn" data-filter="accident"><i class="fa-solid fa-car-burst"></i> Accidentes</button>
+        <button class="alert-filter-btn" data-filter="traffic"><i class="fa-solid fa-traffic-light"></i> Tráfico</button>
+        <button class="alert-filter-btn" data-filter="danger"><i class="fa-solid fa-triangle-exclamation"></i> Peligro</button>
+        <button class="alert-filter-btn" data-filter="weather"><i class="fa-solid fa-cloud-showers-heavy"></i> Clima</button>
+      </div>
+
+      <div class="alert-list" id="alertList">
+        <article class="card alert-item" data-alert-type="accident">
+          <div class="alert-item-header">
+            <div class="icon-chip chip-red"><i class="fa-solid fa-car-burst"></i></div>
+            <div class="item-body">
+              <h3>Accidente · Av. Núñez</h3>
+              <p>Choque entre dos vehículos. Carril derecho bloqueado. Policía en camino.</p>
+            </div>
+          </div>
+          <div class="alert-meta">
+            <span><i class="fa-solid fa-clock"></i> hace 8 min</span>
+            <span><i class="fa-solid fa-location-dot"></i> 1.2 km</span>
+            <span class="alert-severity sev-high">CRÍTICO</span>
           </div>
         </article>
-        <article class="card alert-item">
-          <div class="icon-chip chip-amber"><i class="fa-solid fa-car-burst"></i></div>
-          <div class="item-body">
-            <h3>Accidente reportado</h3>
-            <p>Vía Expresa presenta carril lento. Bomberos y municipalidad notificados.</p>
+        <article class="card alert-item" data-alert-type="traffic">
+          <div class="alert-item-header">
+            <div class="icon-chip chip-amber"><i class="fa-solid fa-traffic-light"></i></div>
+            <div class="item-body">
+              <h3>Congestión · Terminal</h3>
+              <p>Tráfico pesado en entrada al terminal terrestre. Demora estimada 15 min.</p>
+            </div>
+          </div>
+          <div class="alert-meta">
+            <span><i class="fa-solid fa-clock"></i> hace 12 min</span>
+            <span><i class="fa-solid fa-location-dot"></i> 0.8 km</span>
+            <span class="alert-severity sev-med">MODERADO</span>
           </div>
         </article>
-        <article class="card alert-item">
-          <div class="icon-chip chip-blue"><i class="fa-solid fa-person-military-pointing"></i></div>
-          <div class="item-body">
-            <h3>Apoyo policial cercano</h3>
-            <p>Punto de auxilio a 900 m conectado al centro de control.</p>
+        <article class="card alert-item" data-alert-type="danger">
+          <div class="alert-item-header">
+            <div class="icon-chip chip-red"><i class="fa-solid fa-triangle-exclamation"></i></div>
+            <div class="item-body">
+              <h3>Zona de riesgo · Curva km 4</h3>
+              <p>Derrumbe parcial reportado en vía de acceso. Evitar hasta nuevo aviso.</p>
+            </div>
+          </div>
+          <div class="alert-meta">
+            <span><i class="fa-solid fa-clock"></i> hace 34 min</span>
+            <span><i class="fa-solid fa-location-dot"></i> 3.1 km</span>
+            <span class="alert-severity sev-high">CRÍTICO</span>
           </div>
         </article>
-        <article class="card alert-item">
-          <div class="icon-chip chip-teal"><i class="fa-solid fa-cloud-sun-rain"></i></div>
-          <div class="item-body">
-            <h3>Clima y tránsito</h3>
-            <p>Llovizna ligera en 40 minutos. Manejo estable con velocidad moderada.</p>
+        <article class="card alert-item" data-alert-type="weather">
+          <div class="alert-item-header">
+            <div class="icon-chip chip-blue"><i class="fa-solid fa-cloud-showers-heavy"></i></div>
+            <div class="item-body">
+              <h3>Lluvia intensa · Zona norte</h3>
+              <p>Precipitaciones fuertes reducen visibilidad. Vías con riesgo de deslizamiento.</p>
+            </div>
+          </div>
+          <div class="alert-meta">
+            <span><i class="fa-solid fa-clock"></i> hace 5 min</span>
+            <span><i class="fa-solid fa-location-dot"></i> 2.4 km</span>
+            <span class="alert-severity sev-med">MODERADO</span>
           </div>
         </article>
+        <article class="card alert-item" data-alert-type="traffic">
+          <div class="alert-item-header">
+            <div class="icon-chip chip-amber"><i class="fa-solid fa-road-barrier"></i></div>
+            <div class="item-body">
+              <h3>Vía cerrada · Jr. Lima</h3>
+              <p>Obras municipales bloquean un carril. Tomar ruta alterna por Av. Garcilaso.</p>
+            </div>
+          </div>
+          <div class="alert-meta">
+            <span><i class="fa-solid fa-clock"></i> hace 1 h</span>
+            <span><i class="fa-solid fa-location-dot"></i> 0.5 km</span>
+            <span class="alert-severity sev-low">LEVE</span>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="screen" id="news-screen">
+      <div class="section-title">
+        <h2>Noticias y avisos</h2>
+        <small>Actualizado ahora</small>
+      </div>
+
+      <div class="news-tabs">
+        <button class="news-tab active" data-news="all">Todos</button>
+        <button class="news-tab" data-news="transit">Tránsito</button>
+        <button class="news-tab" data-news="system">Sistema</button>
+        <button class="news-tab" data-news="community">Reportes</button>
+      </div>
+
+      <div class="news-list">
+
+        <article class="news-card news-featured">
+          <div class="news-tag tag-urgent">URGENTE</div>
+          <h3>Accidente múltiple en la Panamericana Sur deja 3 heridos</h3>
+          <p>Un choque en cadena a la altura del km 305 generó congestión de más de 4 km. Las autoridades trabajan en el lugar.</p>
+          <div class="news-footer">
+            <span><i class="fa-solid fa-clock"></i> hace 22 min</span>
+            <span><i class="fa-solid fa-map-pin"></i> Perú</span>
+          </div>
+        </article>
+
+        <article class="news-card" data-news-type="system">
+          <div class="news-tag tag-system">SISTEMA</div>
+          <h3>Tranquicar actualiza cobertura en Abancay</h3>
+          <p>Se agregaron 15 nuevos puntos de referencia al mapa incluyendo postas médicas, bomberos y puntos de seguridad.</p>
+          <div class="news-footer">
+            <span><i class="fa-solid fa-clock"></i> hace 1 h</span>
+            <span><i class="fa-solid fa-bell"></i> Aviso del sistema</span>
+          </div>
+        </article>
+
+        <article class="news-card" data-news-type="transit">
+          <div class="news-tag tag-transit">TRÁNSITO</div>
+          <h3>MTC anuncia nuevas reglas para mototaxis en zonas urbanas</h3>
+          <p>El Ministerio de Transportes publicó un reglamento que establece zonas permitidas y restricciones horarias.</p>
+          <div class="news-footer">
+            <span><i class="fa-solid fa-clock"></i> hace 3 h</span>
+            <span><i class="fa-solid fa-map-pin"></i> Nacional</span>
+          </div>
+        </article>
+
+        <article class="news-card" data-news-type="community">
+          <div class="news-tag tag-community">REPORTE</div>
+          <h3>Conductor de Abancay reporta bache peligroso en Jr. Arequipa</h3>
+          <p>El reporte fue validado por 12 usuarios de la comunidad. Municipalidad fue notificada automáticamente.</p>
+          <div class="news-footer">
+            <span><i class="fa-solid fa-clock"></i> hace 4 h</span>
+            <span><i class="fa-solid fa-thumbs-up"></i> 12 validaciones</span>
+          </div>
+        </article>
+
+        <article class="news-card" data-news-type="transit">
+          <div class="news-tag tag-transit">TRÁNSITO</div>
+          <h3>Apurímac registra aumento de accidentes en vías interurbanas</h3>
+          <p>Según el SUTRAN, los accidentes por exceso de velocidad aumentaron 18% en el último trimestre en la región.</p>
+          <div class="news-footer">
+            <span><i class="fa-solid fa-clock"></i> ayer</span>
+            <span><i class="fa-solid fa-map-pin"></i> Apurímac</span>
+          </div>
+        </article>
+
+        <article class="news-card" data-news-type="system">
+          <div class="news-tag tag-system">SISTEMA</div>
+          <h3>Nueva función: historial de rutas y puntuación de manejo</h3>
+          <p>Próximamente podrás ver tus rutas anteriores y recibir una puntuación basada en tu comportamiento al volante.</p>
+          <div class="news-footer">
+            <span><i class="fa-solid fa-clock"></i> ayer</span>
+            <span><i class="fa-solid fa-bell"></i> Aviso del sistema</span>
+          </div>
+        </article>
+
       </div>
     </section>
 
@@ -298,6 +447,111 @@
     </section>
   </main>
 
+  <!-- Panel de clima -->
+  <div class="weather-backdrop" id="weatherBackdrop" aria-hidden="true"></div>
+  <aside class="weather-sheet" id="weatherSheet" aria-label="Pronóstico semanal" aria-hidden="true">
+    <div class="weather-sheet-handle"></div>
+
+    <div class="weather-sheet-header">
+      <div class="weather-now">
+        <div class="weather-now-icon"><i class="fa-solid fa-cloud-sun"></i></div>
+        <div>
+          <div class="weather-now-temp">23°C</div>
+          <div class="weather-now-desc">Parcialmente nublado · Abancay</div>
+        </div>
+      </div>
+      <button class="weather-close-btn" id="weatherCloseBtn" type="button" aria-label="Cerrar clima">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+    </div>
+
+    <div class="weather-drive-banner drive-ok">
+      <i class="fa-solid fa-circle-check"></i>
+      <div>
+        <strong>Condiciones de manejo: Buenas</strong>
+        <span>Visibilidad adecuada, calzada seca. Velocidad moderada recomendada.</span>
+      </div>
+    </div>
+
+    <div class="weather-section-label">Próximos 7 días</div>
+    <div class="weather-week">
+      <div class="weather-day active-day">
+        <span class="wday">Hoy</span>
+        <i class="fa-solid fa-cloud-sun weather-icon-amber"></i>
+        <span class="wtemp-hi">23°</span>
+        <span class="wtemp-lo">13°</span>
+        <div class="wdrive wdrive-ok">OK</div>
+      </div>
+      <div class="weather-day">
+        <span class="wday">Mar</span>
+        <i class="fa-solid fa-sun weather-icon-yellow"></i>
+        <span class="wtemp-hi">25°</span>
+        <span class="wtemp-lo">14°</span>
+        <div class="wdrive wdrive-ok">OK</div>
+      </div>
+      <div class="weather-day">
+        <span class="wday">Mié</span>
+        <i class="fa-solid fa-cloud-showers-heavy weather-icon-blue"></i>
+        <span class="wtemp-hi">18°</span>
+        <span class="wtemp-lo">11°</span>
+        <div class="wdrive wdrive-caution">⚠</div>
+      </div>
+      <div class="weather-day">
+        <span class="wday">Jue</span>
+        <i class="fa-solid fa-cloud-rain weather-icon-blue"></i>
+        <span class="wtemp-hi">17°</span>
+        <span class="wtemp-lo">10°</span>
+        <div class="wdrive wdrive-caution">⚠</div>
+      </div>
+      <div class="weather-day">
+        <span class="wday">Vie</span>
+        <i class="fa-solid fa-cloud-sun weather-icon-amber"></i>
+        <span class="wtemp-hi">21°</span>
+        <span class="wtemp-lo">12°</span>
+        <div class="wdrive wdrive-ok">OK</div>
+      </div>
+      <div class="weather-day">
+        <span class="wday">Sáb</span>
+        <i class="fa-solid fa-sun weather-icon-yellow"></i>
+        <span class="wtemp-hi">24°</span>
+        <span class="wtemp-lo">13°</span>
+        <div class="wdrive wdrive-ok">OK</div>
+      </div>
+      <div class="weather-day">
+        <span class="wday">Dom</span>
+        <i class="fa-solid fa-cloud weather-icon-gray"></i>
+        <span class="wtemp-hi">20°</span>
+        <span class="wtemp-lo">12°</span>
+        <div class="wdrive wdrive-ok">OK</div>
+      </div>
+    </div>
+
+    <div class="weather-section-label">Alertas viales por clima</div>
+    <div class="weather-alerts">
+      <div class="weather-alert-item">
+        <div class="icon-chip chip-amber"><i class="fa-solid fa-cloud-showers-heavy"></i></div>
+        <div class="item-body">
+          <h3>Lluvia miércoles y jueves</h3>
+          <p>Se esperan precipitaciones moderadas. Reduce velocidad y mantén distancia de seguridad. Vías con riesgo de deslizamiento en accesos a la ciudad.</p>
+        </div>
+      </div>
+      <div class="weather-alert-item">
+        <div class="icon-chip chip-blue"><i class="fa-solid fa-wind"></i></div>
+        <div class="item-body">
+          <h3>Vientos moderados esta tarde</h3>
+          <p>Ráfagas de hasta 35 km/h en zonas altas. Precaución con vehículos de carga y motos.</p>
+        </div>
+      </div>
+      <div class="weather-alert-item">
+        <div class="icon-chip chip-teal"><i class="fa-solid fa-temperature-low"></i></div>
+        <div class="item-body">
+          <h3>Temperatura baja en la madrugada</h3>
+          <p>Entre 2 am y 6 am se esperan 8°C. Posible neblina en vías altas. Enciende luces bajas.</p>
+        </div>
+      </div>
+    </div>
+  </aside>
+
   <aside class="install-banner" id="installBanner" aria-live="polite">
     <img src="assets/tranquicar-logo.avif" alt="" />
     <div>
@@ -323,11 +577,41 @@
       <i class="fa-solid fa-triangle-exclamation"></i>
       Alertas
     </button>
+    <button class="nav-item" data-target="news" type="button">
+      <i class="fa-solid fa-newspaper"></i>
+      Noticias
+    </button>
     <button class="nav-item" data-target="community" type="button">
       <i class="fa-solid fa-users"></i>
       Comunidad
     </button>
   </nav>
+
+  <!-- Pantalla de llamada simulada -->
+  <div class="call-screen" id="callScreen" aria-hidden="true">
+    <div class="call-bg"></div>
+    <div class="call-content">
+      <div class="call-status" id="callStatus">Llamando...</div>
+      <div class="call-avatar-ring">
+        <div class="call-ring call-ring-1"></div>
+        <div class="call-ring call-ring-2"></div>
+        <div class="call-ring call-ring-3"></div>
+        <div class="call-avatar">
+          <i class="fa-solid fa-shield-halved"></i>
+        </div>
+      </div>
+      <div class="call-name">Policía Nacional</div>
+      <div class="call-number">105</div>
+      <div class="call-timer" id="callTimer">00:00</div>
+      <div class="call-location-note">
+        <i class="fa-solid fa-location-dot"></i>
+        <span>Tu ubicación será compartida automáticamente</span>
+      </div>
+      <button class="call-end-btn" id="callEndBtn" type="button">
+        <i class="fa-solid fa-phone-slash"></i>
+      </button>
+    </div>
+  </div>
 
   <div class="modal-backdrop" id="modalBackdrop" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
     <div class="modal">
